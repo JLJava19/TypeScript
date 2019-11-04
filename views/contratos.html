@@ -4,24 +4,84 @@
 <pre>
     <!--{{vm.contratos | json}}-->
 </pre>
-<p>Nº de contratos: {{ vm.contratos.length }}</p>
-<span>Filtrar por nombre:</span>
-<input type="text" placeholder="Contrato" ng-model="busqueda.nombre">
+
+<div class="col border p-2">
+    <p>Nº de contratos: <b>{{ vm.contratos.length }}</b></p>
+    <p>Numero de contratos sin acciones: <b>{{ vm.contratosSinAcciones.length }}</b></p>
+    <p>Numero de contratos entre 1 y 3 acciones: <b>{{ vm.contratosAccionesEntre1y3.length }}</b></p>
+    <p>Numero de contratos de > 3 caracteres: <b>{{ vm.contratosAccionesMayor3.length }}</b></p>
+    <p>Buscar Primer contrato que tenga en ACCIONES "clave":situacion: <b>{{ vm.contratosAccionesClaveSituacion.length }}</b></p>
+    <p>Buscar último contrato que tenga en ACCIONES "clave":situacion: <b></b></p>
+    <p>Todas las acciones diferentes</p>
+</div>
 
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Contratos</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="contrato in vm.contratos | filter: busqueda">
-            <th scope="row">{{$index + 1}}</th>
-            <td class="{{ contrato.nombre? '': 'sin-datos'}}">{{contrato.nombre? contrato.nombre: 'Sin nombre'}}</td>
-            <td class="{{ contrato.ACCIONES? '': 'sin-datos'}}">{{contrato.ACCIONES?contrato.ACCIONES.length:'0'}}</td>
-        </tr>
-    </tbody>
-</table>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Contratos Sin Mapear</h2>  
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Filtros
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                <input type="text" placeholder="Id Columna" ng-model="busqueda.idColumn">
+                <input type="text" placeholder="Nombre de Contrato" ng-model="busqueda.nombre">
+            </div>
+        </div>      
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" ng-click="campo='nombre';orden=!orden">Nombre</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contrato in vm.contratos | filter: busqueda | orderBy:campo:orden">
+                    <th scope="row">{{$index + 1}} {{contrato.idColumn}}</th>
+                    <td class="{{ contrato.nombre? '': 'sin-datos'}}">{{contrato.nombre? contrato.nombre: 'Sin nombre'}}</td>
+                    <td class="{{ contrato.ACCIONES? '': 'sin-datos'}}">{{contrato.ACCIONES?contrato.ACCIONES.length:'0'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <h2>Contratos Mapeados</h2>
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExampleMap" aria-expanded="false" aria-controls="collapseExample">
+                Filtros
+            </button>
+        </p>
+        <div class="collapse" id="collapseExampleMap">
+            <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                <input type="text" placeholder="Id Columna" ng-model="busquedaMapeada.id">
+                <input type="text" placeholder="Nombre de Contrato" ng-model="busquedaMapeada.nombre">
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" ng-click="campo='id';orden=!orden">#</th>
+                    <th scope="col" ng-click="campo='nombre';orden=!orden">Nombre</th>
+                    <th scope="col" ng-click="campo='numeroAcciones';orden=!orden">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contrato in vm.contratosMapeados | filter: busquedaMapeada | orderBy:campo:orden">
+                    <th scope="row">{{$index + 1}} {{contrato.id}}</th>
+                    <td>{{contrato.nombre}}</td>
+                    <td>{{contrato.numeroAcciones}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
