@@ -1,0 +1,27 @@
+<h1>Filter, map y reduce</h1>
+{{vm.titulo}}
+<br>
+<pre>
+    <!--{{vm.contratos | json}}-->
+</pre>
+<p>Nº de contratos: {{ vm.contratos.length }}</p>
+<span>Filtrar por nombre:</span>
+<input type="text" placeholder="Contrato" ng-model="contrato.nombre">
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Contratos</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="contrato in vm.contratos | filter: contrato.nombre">
+            <th scope="row">{{$index + 1}}</th>
+            <td class="{{ contrato.nombre? '': 'sin-datos'}}">{{contrato.nombre? contrato.nombre: 'Sin nombre'}}</td>
+            <td class="{{ contrato.ACCIONES? '': 'sin-datos'}}">{{contrato.ACCIONES?contrato.ACCIONES.length:'0'}}</td>
+        </tr>
+    </tbody>
+</table>
