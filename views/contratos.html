@@ -6,7 +6,7 @@
 </pre>
 <p>Nº de contratos: {{ vm.contratos.length }}</p>
 <span>Filtrar por nombre:</span>
-<input type="text" placeholder="Contrato" ng-model="contrato.nombre">
+<input type="text" placeholder="Contrato" ng-model="busqueda.nombre">
 
 
 <table class="table table-striped">
@@ -18,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="contrato in vm.contratos | filter: contrato.nombre">
+        <tr ng-repeat="contrato in vm.contratos | filter: busqueda">
             <th scope="row">{{$index + 1}}</th>
             <td class="{{ contrato.nombre? '': 'sin-datos'}}">{{contrato.nombre? contrato.nombre: 'Sin nombre'}}</td>
             <td class="{{ contrato.ACCIONES? '': 'sin-datos'}}">{{contrato.ACCIONES?contrato.ACCIONES.length:'0'}}</td>
