@@ -7,10 +7,10 @@ const app = angular.module("repaso",         // Nombre de la app o modulo princi
 // 2.- Registrar servivios y modulos en la app
 
 app
-  //.service("ergastService", ErgastService)
+  .service("librosService", LibrosService)
   .controller("contratosController", ContratosController)
+  .controller("librosController", LibrosController)
   /*
-  .controller("pilotoCarrerasController", PilotoCarrerasController)
   .controller("pilotoDetalleController", PilotoDetalleController)
   .controller("pilotoController", PilotoController)
   .controller("circuitosController", CircuitosController);
@@ -41,6 +41,34 @@ app.config([
             url: "/filter-map-reduce",
             templateUrl: "views/contratos.html"  ,
             controller: ContratosController      
+          }
+      )
+      .state("libros", 
+          {
+            url: "/listado-libros",
+            templateUrl: "views/libros.html"  ,
+            controller: LibrosController      
+          }
+      )
+      .state("editar", 
+          {
+            url: "/listado-libros.editar/:id",
+            templateUrl: "views/editar.html",   
+            controller: "pilotoController",
+            resolve: {
+              pilotoId: ["$stateParams", ($stateParams: angular.ui.IStateParamsService) => $stateParams.id],
+              piloto: [
+                "librosService",
+                "libroId",
+                (librosService: any, libroId: string) =>
+                librosService.find(clasificacion => clasificacion.Driver.id == libroId)
+              ]
+            }
+      )
+      .state("borrar", 
+          {
+            url: "/listado-libros.borrar",
+            templateUrl: "views/borrar.html"   
           }
       )
       

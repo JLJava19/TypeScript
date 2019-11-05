@@ -1,0 +1,30 @@
+<h2>Libros</h2>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"># isbn</th>
+        <th scope="col">Título</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Páginas</th>
+        <th scope="col">Digital</th>
+        <th scope="col">Formato</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="libro in vm.libros">
+        <th scope="row">{{ $index + 1 }}</th>
+        <td><a ui-sref="editar(libro.id)">{{ libro.titulo }}</a></td>
+        <td>{{ libro.autor }}</td>
+        <td>{{ libro.numeroPaginas }}</td>
+        <td>{{ libro.digital }}</td>
+        <td>{{ libro.formatos.toString() }}</td>
+        <td><!--<i class="fas fa-edit"></i>--><a ui-sref="borrar"><i class="fas fa-trash"></i></a></td>
+      </tr>
+    </tbody>
+</table>
+
+<pre>
+    {{vm.libros | json}}
+</pre>

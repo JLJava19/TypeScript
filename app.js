@@ -1,7 +1,9 @@
 var Visualizer = window["ui-router-visualizer"].Visualizer;
 var app = angular.module("repaso", ["ui.router"]);
 app
-    .controller("contratosController", ContratosController);
+    .service("librosService", LibrosService)
+    .controller("contratosController", ContratosController)
+    .controller("librosController", LibrosController);
 app.config([
     "$urlRouterProvider",
     "$stateProvider",
@@ -21,6 +23,30 @@ app.config([
             url: "/filter-map-reduce",
             templateUrl: "views/contratos.html",
             controller: ContratosController
+        })
+            .state("libros", {
+            url: "/listado-libros",
+            templateUrl: "views/libros.html",
+            controller: LibrosController
+        })
+            .state("editar", {
+            url: "/listado-libros.editar/:id",
+            templateUrl: "views/editar.html",
+            controller: "pilotoController",
+            resolve: {
+                pilotoId: ["$stateParams", function ($stateParams) { return $stateParams.id; }],
+                piloto: [
+                    "librosService",
+                    "libroId",
+                    function (librosService, libroId) {
+                        return librosService.find(function (clasificacion) { return clasificacion.Driver.id == libroId; });
+                    }
+                ]
+            }
+        })
+            .state("borrar", {
+            url: "/listado-libros.borrar",
+            templateUrl: "views/borrar.html"
         });
     }
 ]);
