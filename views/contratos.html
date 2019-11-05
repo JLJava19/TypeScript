@@ -10,9 +10,12 @@
     <p>Numero de contratos sin acciones: <b>{{ vm.contratosSinAcciones.length }}</b></p>
     <p>Numero de contratos entre 1 y 3 acciones: <b>{{ vm.contratosAccionesEntre1y3.length }}</b></p>
     <p>Numero de contratos de > 3 caracteres: <b>{{ vm.contratosAccionesMayor3.length }}</b></p>
-    <p>Buscar Primer contrato que tenga en ACCIONES "clave":situacion: <b>{{ vm.contratosAccionesClaveSituacion.length }}</b></p>
-    <p>Buscar último contrato que tenga en ACCIONES "clave":situacion: <b></b></p>
+    <p>Buscar Primer contrato que tenga en ACCIONES "clave":situacion: <b>{{ vm.primerContratoAccionClaveSituacion.idColumn }}</b></p>
+    <p>Buscar último contrato que tenga en ACCIONES "clave":situacion: <b>{{ vm.ultimoContratoAccionClaveSituacion.idColumn }}</b></p>
     <p>Todas las acciones diferentes</p>
+    <ol>
+        <li ng-repeat="accion in vm.acciones">{{accion}}</li>
+    </ol>
 </div>
 
 
