@@ -30,22 +30,12 @@ app.config([
             controller: LibrosController
         })
             .state("editar", {
-            url: "/listado-libros.editar/:id",
+            url: "/libros-editar",
             templateUrl: "views/editar.html",
-            controller: "pilotoController",
-            resolve: {
-                pilotoId: ["$stateParams", function ($stateParams) { return $stateParams.id; }],
-                piloto: [
-                    "librosService",
-                    "libroId",
-                    function (librosService, libroId) {
-                        return librosService.find(function (clasificacion) { return clasificacion.Driver.id == libroId; });
-                    }
-                ]
-            }
+            controller: LibrosController
         })
             .state("borrar", {
-            url: "/listado-libros.borrar",
+            url: "/ibros-borrar",
             templateUrl: "views/borrar.html"
         });
     }

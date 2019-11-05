@@ -52,22 +52,13 @@ app.config([
       )
       .state("editar", 
           {
-            url: "/listado-libros.editar/:id",
+            url: "/libros-editar",
             templateUrl: "views/editar.html",   
-            controller: "pilotoController",
-            resolve: {
-              pilotoId: ["$stateParams", ($stateParams: angular.ui.IStateParamsService) => $stateParams.id],
-              piloto: [
-                "librosService",
-                "libroId",
-                (librosService: any, libroId: string) =>
-                librosService.find(clasificacion => clasificacion.Driver.id == libroId)
-              ]
-            }
+            controller: LibrosController
       )
       .state("borrar", 
           {
-            url: "/listado-libros.borrar",
+            url: "/ibros-borrar",
             templateUrl: "views/borrar.html"   
           }
       )
