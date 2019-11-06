@@ -50,7 +50,7 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      ES IRREVERSIBLE!!!!!!!!!!!!
+                      ES IRREVERSIBLE!!!!!!!!!!!!<br>
                       BE CAREFULLLL!!!!!!!!!
                     </div>
                     <div class="modal-footer">
@@ -86,7 +86,17 @@
           <label for="inputAutor" class="col-sm-2 col-form-label">Titulo</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="inputTitulo" name="inputTitulo" 
-            placeholder="Autor del libro" ng-model="vm.libroEditar.titulo">
+                    placeholder="Autor del libro" 
+                    ng-class="{'is-invalid' : formulario.inputTitulo.$invalid && formulario.inputTitulo.$dirty}"
+                    ng-minlength=3
+                    ng-maxlength=45
+                    ng-model="vm.libroEditar.titulo" required>
+            <div class="invalid-feedback" ng-messages for="formulario.inputTitulo.$error"
+                                          ng-if=formulario.inputTitulo.$dirty>
+                <span ng-message when="required">Ingrese un nombre para el titulo</span>
+                <span ng-message when="minlength">Se admiten 3 caracteres como minimo</span>
+                <span ng-message when="maxlength">Se admiten 45 caracteres como maximo</span>
+            </div>
           </div>
         </div>
         <div class="form-group row">

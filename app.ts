@@ -2,7 +2,7 @@
 let Visualizer = window["ui-router-visualizer"].Visualizer;
 // 1.- Declaracion de la App
 const app = angular.module("repaso",         // Nombre de la app o modulo principal
-                            ["ui.router"]);  // Inyeccion de modulos o librerias
+                            ["ui.router", "ngMessages"]);  // Inyeccion de modulos o librerias
 
 // 2.- Registrar servivios y modulos en la app
 
