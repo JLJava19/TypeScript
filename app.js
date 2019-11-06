@@ -28,22 +28,12 @@ app.config([
             url: "/listado-libros",
             templateUrl: "views/libros.html",
             controller: LibrosController
-        })
-            .state("editar", {
-            url: "/libros-editar",
-            templateUrl: "views/editar.html",
-            controller: LibrosController
-        })
-            .state("borrar", {
-            url: "/ibros-borrar",
-            templateUrl: "views/borrar.html"
         });
     }
 ]);
 app.run([
     "$uiRouter",
     function ($uiRouter) {
-        var pluginInstance = $uiRouter.plugin(Visualizer);
     }
 ]);
 app.constant("contratosJson", [

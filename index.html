@@ -18,30 +18,30 @@
     <!-- modelo de datos -->
     <script src="model/IContrato.js"></script>
     <script src="model/ILibro.js"></script>
+
     <!-- servicios -->
     <script src="services/librosService.js"></script>
+
     <!-- controladores -->
     <script src="controllers/ContratosController.js"></script>
     <script src="controllers/LibrosController.js"></script>
-
+    
     <!-- nuestra App -->
     <script src="app.js"></script>
     <script src="routing.js"></script>
 
 </head>
 <body class="container" ng-strict-di ng-cloak>
+    
     <ng-include src="'views/cabecera.html'"></ng-include>
     
+    <h2>{{ 'Repaso App' | uppercase }}</h2>
 
-    <h1>{{ 'Repaso App' | uppercase }}</h1>
-
-  
     <main ui-view></main>
 
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+    
 </body>
 </html>

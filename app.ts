@@ -49,20 +49,7 @@ app.config([
             templateUrl: "views/libros.html"  ,
             controller: LibrosController      
           }
-      )
-      .state("editar", 
-          {
-            url: "/libros-editar",
-            templateUrl: "views/editar.html",   
-            controller: LibrosController
-      )
-      .state("borrar", 
-          {
-            url: "/ibros-borrar",
-            templateUrl: "views/borrar.html"   
-          }
-      )
-      
+      )    
   }
 ]);
 
@@ -70,7 +57,7 @@ app.config([
 app.run([
   "$uiRouter",
   $uiRouter => {
-    const pluginInstance = $uiRouter.plugin(Visualizer);
+   // const pluginInstance = $uiRouter.plugin(Visualizer);
   }
 ]);
 
