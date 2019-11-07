@@ -42,12 +42,15 @@ class LibrosController implements ng.IController{
             $scope.vm.libroEditar = angular.copy(libro);
         };
 
-        this.borrar = ( idLibro: number )=>{
-            console.debug('click boton borrar %s', idLibro);
-            librosService.delete( idLibro).then(
+        this.borrar = ( libro: ILibro)=>{
+            console.debug('click boton borrar %s', libro.id);
+            let book = libro;
+            librosService.delete( book.id).then(
                 ( data )=>{
                     console.info("libro borrado %o", data);
                     $scope.vm.mensaje = "Libro Borrado";
+                    const posicion = $scope.vm.libros.indexOf(book);
+                    $scope.vm.libros.splice( posicion , 1);
                 },
                 ( res)=>{
                     console.warn("No se puedo borrar %o", res);
@@ -61,6 +64,16 @@ class LibrosController implements ng.IController{
             const lib = $scope.vm.libroEditar;
             console.debug('submitado formulario %o', lib );
 
+            if (!lib.digital){
+                lib.formatos = undefined;
+            }
+
+            //validar si es digital, al menos un formato
+            if ( lib.digital && !lib.formatos ){
+                $scope.vm.mensaje = "*Es Necesario seleccionar algun formato";
+                return false; // break de java
+            }
+
             if ( lib.id ){     // modificar
 
                 librosService.modificar( lib.id, lib).then(
@@ -69,6 +82,10 @@ class LibrosController implements ng.IController{
                         $scope.vm.mensaje = "Libro Modificado";
                         // toastr.success('Libro Modificado!', 'LibreriaIpartek');
                         //TODO actualizar listado libros
+                        let book = $scope.vm.libros.find( e => e.id==lib.id);
+                        const posicion = $scope.vm.libros.indexOf(book);
+                        $scope.vm.libros[posicion] = lib;
+                        $scope.vm.libroEditar = undefined
                     },
                     ( res)=>{
                         console.warn("No se puedo editar %o", res);
@@ -84,7 +101,7 @@ class LibrosController implements ng.IController{
                         console.info("libro nuevo %o", data);
                         $scope.vm.mensaje = "Libro Nuevo Creado";
                         $scope.vm.libros.push(data); 
-                        $scope.vm.libroEditar = undefined;
+                        //$scope.vm.libroEditar = undefined;
                     },
                     ( res)=>{
                         console.warn("No se puedo crear libro %o", res);

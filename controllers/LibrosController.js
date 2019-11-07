@@ -16,11 +16,14 @@ var LibrosController = (function () {
             console.debug('click boton editar %o', libro);
             $scope.vm.libroEditar = angular.copy(libro);
         };
-        this.borrar = function (idLibro) {
-            console.debug('click boton borrar %s', idLibro);
-            librosService.delete(idLibro).then(function (data) {
+        this.borrar = function (libro) {
+            console.debug('click boton borrar %s', libro.id);
+            var book = libro;
+            librosService.delete(book.id).then(function (data) {
                 console.info("libro borrado %o", data);
                 $scope.vm.mensaje = "Libro Borrado";
+                var posicion = $scope.vm.libros.indexOf(book);
+                $scope.vm.libros.splice(posicion, 1);
             }, function (res) {
                 console.warn("No se puedo borrar %o", res);
                 $scope.vm.mensaje = "ERROR borrando";
@@ -29,10 +32,21 @@ var LibrosController = (function () {
         this.guardar = function () {
             var lib = $scope.vm.libroEditar;
             console.debug('submitado formulario %o', lib);
+            if (!lib.digital) {
+                lib.formatos = undefined;
+            }
+            if (lib.digital && !lib.formatos) {
+                $scope.vm.mensaje = "*Es Necesario seleccionar algun formato";
+                return false;
+            }
             if (lib.id) {
                 librosService.modificar(lib.id, lib).then(function (data) {
                     console.info("libro editado %o", data);
                     $scope.vm.mensaje = "Libro Modificado";
+                    var book = $scope.vm.libros.find(function (e) { return e.id == lib.id; });
+                    var posicion = $scope.vm.libros.indexOf(book);
+                    $scope.vm.libros[posicion] = lib;
+                    $scope.vm.libroEditar = undefined;
                 }, function (res) {
                     console.warn("No se puedo editar %o", res);
                     $scope.vm.mensaje = "ERROR modificando";
@@ -43,7 +57,6 @@ var LibrosController = (function () {
                     console.info("libro nuevo %o", data);
                     $scope.vm.mensaje = "Libro Nuevo Creado";
                     $scope.vm.libros.push(data);
-                    $scope.vm.libroEditar = undefined;
                 }, function (res) {
                     console.warn("No se puedo crear libro %o", res);
                     $scope.vm.mensaje = "ERROR creando Libro";

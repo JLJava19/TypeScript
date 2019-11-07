@@ -56,7 +56,7 @@
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                       <button type="button" class="btn btn-primary"
-                              ng-click="vm.borrar(libro.id)" data-dismiss="modal">
+                              ng-click="vm.borrar(libro)" data-dismiss="modal">
                               Eliminar Libro
                       </button>
                     </div>
@@ -73,13 +73,24 @@
 
     <div class="col-md-5 offset-md-1">
       <h3>{{(vm.libroEditar.id)?'Modificar ':'Crear '}} Libro</h3>
+      <h4>Validación con <span class="text-danger">ng-message</span></h4>
       <form name="formulario" ng-submit="vm.guardar()" novalidate>
       
         <div class="form-group row">
           <label for="inputAutor" class="col-sm-2 col-form-label">Autor</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="inputAutor" name="inputAutor" 
-            placeholder="Autor del libro" ng-model="vm.libroEditar.autor">
+                    placeholder="Autor del libro" 
+                    ng-class="{'is-invalid' : formulario.inputAutor.$invalid && formulario.inputAutor.$dirty}"
+                    ng-minlength=3
+                    ng-maxlength=45
+                    ng-model="vm.libroEditar.autor" required>
+            <div class="invalid-feedback" ng-messages for="formulario.inputAutor.$error"
+                                          ng-if=formulario.inputAutor.$dirty>
+                <span ng-message when="required">Ingrese un nombre para el autor</span>
+                <span ng-message when="minlength">Se admiten 3 caracteres como minimo</span>
+                <span ng-message when="maxlength">Se admiten 45 caracteres como maximo</span>
+            </div>
           </div>
         </div>
         <div class="form-group row">
@@ -103,14 +114,34 @@
             <label for="inputIsbn" class="col-sm-2 col-form-label">ISBN</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="inputIsbn" name="inputIsbn" 
-              placeholder="Isbn del libro" ng-model="vm.libroEditar.isbn">
+                      placeholder="Isbn del libro" 
+                      ng-class="{'is-invalid' : formulario.inputIsbn.$invalid && formulario.inputIsbn.$dirty}"
+                      ng-minlength=3
+                      ng-maxlength=45
+                      ng-model="vm.libroEditar.isbn" required>
+              <div class="invalid-feedback" ng-messages for="formulario.inputIsbn.$error"
+                      ng-if=formulario.inputIsbn.$dirty>
+              <span ng-message when="required">Ingrese el ISBN</span>
+              <span ng-message when="minlength">Se admiten 3 caracteres como minimo</span>
+              <span ng-message when="maxlength">Se admiten 11 caracteres como maximo</span>
+</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputNumPaginas" class="col-sm-2 col-form-label">Nº Páginas</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control w-50" id="inputNumPaginas" name="inputNumPaginas" 
-              placeholder="Nº de páginas del libro" ng-model="vm.libroEditar.numeroPaginas">
+              <input type="number" min=0 max= 4500 class="form-control w-5" id="inputNumPaginas" name="inputNumPaginas" 
+                      placeholder="Nº de páginas del libro" 
+                      ng-class="{'is-invalid' : formulario.inputNumPaginas.$invalid && formulario.inputNumPaginas.$dirty}"
+                      ng-minlength=1
+                      ng-maxlength=4
+                      ng-model="vm.libroEditar.numeroPaginas" required>
+              <div class="invalid-feedback" ng-messages for="formulario.inputNumPaginas.$error"
+                      ng-if=formulario.inputNumPaginas.$dirty>
+                <span ng-message when="required">Ingrese el numero de paginas</span>
+                <span ng-message when="minlength">Se admiten 1 caracteres como minimo</span>
+                <span ng-message when="maxlength">Se admiten 4 caracteres como maximo</span>
+              </div>
             </div>
         </div>
 
@@ -121,7 +152,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" 
                        ng-model="vm.libroEditar.digital"
-                       ng-click="(vm.libroEditar.formatos = [])"
+                       ng-click="(vm.libroEditar.formatos = {})"
                        ng-checked="(vm.libroEditar.digital == true)"
                        ng-true-value=true>
                 <label class="form-check-label" for="gridRadios1">
@@ -145,14 +176,15 @@
         <div class="form-group row" ng-if="vm.libroEditar.formatos">
           <div class="col-sm-2">Formatos</div>
           <div class="col-sm-10">
+            
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1"
-                     ng-model="vm.libroEditar.formatos"
-                     ng-checked="vm.libroEditar.formatos[0] == 'epub'"
-                     ng-true-value="epub">
-              <label class="form-check-label" for="gridCheck1">
-                epub
-              </label>
+                    PDF
+                <input type="checkbox" name="formatos.pdf" ng-model="vm.libroEditar.formatos.pdf">  
+                <label class="form-check-label" for="gridCheck1">
+                    epub
+                </label>
+                <input type="checkbox" name="formatos.epub" ng-model="vm.libroEditar.formatos.epub"> 
+              
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck1"

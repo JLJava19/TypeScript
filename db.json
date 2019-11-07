@@ -18,19 +18,24 @@
   },
   "libros": [
     {
-      "titulo": "Mortadelo y filemon 3",
-      "isbn": "14-KF",
-      "id": 3,
-      "numeroPaginas": 137,
-      "autor": "Ibañez Perez",
+      "autor": "Ibañezeeeeeee",
+      "titulo": "Inventos infernalesedd",
+      "isbn": "123-LKJ",
+      "numeroPaginas": 13,
+      "id": 11,
       "digital": false
     },
     {
-      "autor": "Ibañezdddd",
-      "titulo": "Inventos infernales",
-      "isbn": "123-LKJ",
+      "autor": "Ibañezdddd dddddddddd",
+      "titulo": "ewweedddd dddeeeeeeeee",
+      "isbn": "wew",
       "numeroPaginas": 3,
-      "id": 4
+      "id": 12,
+      "digital": true,
+      "formatos": {
+        "epub": false,
+        "pdf": true
+      }
     }
   ]
 }
