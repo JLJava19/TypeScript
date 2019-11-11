@@ -2,8 +2,10 @@ var Visualizer = window["ui-router-visualizer"].Visualizer;
 var app = angular.module("repaso", ["ui.router", "ngMessages"]);
 app
     .service("librosService", LibrosService)
+    .service("librosGoogleService", LibrosGoogleService)
     .controller("contratosController", ContratosController)
-    .controller("librosController", LibrosController);
+    .controller("librosController", LibrosController)
+    .controller("librosGoogleController", LibrosGoogleController);
 app.config([
     "$urlRouterProvider",
     "$stateProvider",
@@ -28,6 +30,11 @@ app.config([
             url: "/listado-libros",
             templateUrl: "views/libros.html",
             controller: LibrosController
+        })
+            .state("libros-google-api", {
+            url: "/listado-libros-google",
+            templateUrl: "views/libros-google.html",
+            controller: LibrosGoogleController
         });
     }
 ]);

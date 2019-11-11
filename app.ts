@@ -8,13 +8,11 @@ const app = angular.module("repaso",         // Nombre de la app o modulo princi
 
 app
   .service("librosService", LibrosService)
+  .service("librosGoogleService", LibrosGoogleService)
   .controller("contratosController", ContratosController)
   .controller("librosController", LibrosController)
-  /*
-  .controller("pilotoDetalleController", PilotoDetalleController)
-  .controller("pilotoController", PilotoController)
-  .controller("circuitosController", CircuitosController);
-*/
+  .controller("librosGoogleController", LibrosGoogleController)
+
 // 3.- Configuracion de las rutas
 app.config([
   "$urlRouterProvider",
@@ -49,7 +47,14 @@ app.config([
             templateUrl: "views/libros.html"  ,
             controller: LibrosController      
           }
-      )    
+      )   
+      .state("libros-google-api", 
+          {
+            url: "/listado-libros-google",
+            templateUrl: "views/libros-google.html"  ,
+            controller: LibrosGoogleController      
+          }
+      )  
   }
 ]);
 

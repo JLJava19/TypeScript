@@ -27,9 +27,12 @@
             <td>{{ libro.numeroPaginas }}</td>
             <td>
                 {{(libro.digital)?'Digital':'papel'}}
-                <ol ng-show="{{(libro.digital)}}">
-                  <li ng-repeat="tipo in libro.formatos">{{tipo}}</li>
-                </ol>
+                <ul ng-show="{{(libro.digital)}}">
+                    <li ng-repeat="(key,value) in libro.formatos">
+                            <span class="badge badge-{{(value)?'primary':'secondary'}}"><i class="fas fa-{{(value)?'check':'times'}}"></i>{{key}}</span>
+                       
+                    </li>
+                </ul>
             </td>
             <td>
               <a ng-click="vm.editar(libro)">
@@ -144,36 +147,19 @@
               </div>
             </div>
         </div>
-
-        <fieldset class="form-group row">
-          <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">digital</legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" 
-                       ng-model="vm.libroEditar.digital"
-                       ng-click="(vm.libroEditar.formatos = {})"
-                       ng-checked="(vm.libroEditar.digital == true)"
-                       ng-true-value=true>
-                <label class="form-check-label" for="gridRadios1">
-                  Si
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" 
-                       ng-model="vm.libroEditar.digital"
-                       ng-checked="(vm.libroEditar.digital == false || vm.libroEditar.id == undefined)" 
-                       ng-click="(vm.libroEditar.formatos = undefined)"
-                       ng-true-value=false>
-                <label class="form-check-label" for="gridRadios2">
-                  No
-                </label>
-              </div>
+        <div class="form-group row">
+          <div class="col-sm-2">digital</div>
+          <div class="col-sm-10">
+            
+            <div class="form-check">
+                <input type="checkbox" name="formatos.pdf" ng-model="vm.libroEditar.digital"> 
             </div>
+            <div class="form-check">
+                
+              </div>
           </div>
-        </fieldset>
-        
-        <div class="form-group row" ng-if="vm.libroEditar.formatos">
+        </div>
+        <div class="form-group row" ng-if="vm.libroEditar.digital">
           <div class="col-sm-2">Formatos</div>
           <div class="col-sm-10">
             
@@ -187,13 +173,7 @@
               
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck1"
-                       ng-model="vm.libroEditar.formatos"
-                       ng-checked="vm.libroEditar.formatos[1] == 'pdf'"
-                       ng-true-value="pdf">
-                <label class="form-check-label" for="gridCheck1">
-                  pdf
-                </label>
+                
               </div>
           </div>
         </div>
