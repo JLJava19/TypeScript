@@ -20,7 +20,7 @@ interface ILibrosGoogleService{
   
     public getGoogleLibros = (texto='millenium', autor='stieg'): angular.IPromise<any> => {
   
-        const url = "https://www.googleapis.com/books/v1/volumes?q=" + texto + "+inauthor:" + autor + "&key=AIzaSyCX9_wCDRlpRHv4dIdxU0fF_tEGqX6v718";
+        const url = "https://www.googleapis.com/books/v1/volumes?q=" + texto + "+inauthor:" + autor + "&key=";
         console.trace('GET ' + url);
         return this.http.get(url).then( 
             (res) => { 
